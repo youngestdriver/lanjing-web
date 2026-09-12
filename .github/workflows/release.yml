@@ -11,6 +11,9 @@ name: Release
 #             patch number of the latest tag (v1.0.0 → v1.0.1)
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       version:
