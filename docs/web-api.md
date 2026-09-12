@@ -4,7 +4,7 @@
 >
 > 最后更新：2026-08-05
 >
-> 对应代码：`apps/web/server.js`
+> 对应代码：`server.js`
 
 本文档描述本项目本地 Express 后端对前端开放的 `/api/...` 接口，以及这些接口背后调用的蓝鲸微课考试平台上游接口。
 
@@ -46,7 +46,7 @@ GET 请求无请求体。POST 请求体为 JSON 对象；所有写请求都必�
 后端维护一个进程内 `cookieJar`，并在登录成功后将上游 Cookie 写入：
 
 ```text
-apps/web/.local/session_cookies.txt
+.local/session_cookies.txt
 ```
 
 服务启动时会尝试读取该文件恢复会话。
@@ -82,7 +82,7 @@ HTTP 状态码为 `401`。
 https://test.lanjingweike.com
 ```
 
-上游请求由 `apps/web/server.js` 统一补充浏览器请求头、`Cookie`、`Origin`、`Referer`，并使用 `redirect: "manual"` 处理大多数接口。
+上游请求由 `server.js` 统一补充浏览器请求头、`Cookie`、`Origin`、`Referer`，并使用 `redirect: "manual"` 处理大多数接口。
 
 ---
 
@@ -145,7 +145,7 @@ Content-Type: application/json
 
 登录成功后：
 
-- 后端保存上游 Cookie 到 `apps/web/.local/session_cookies.txt`
+- 后端保存上游 Cookie 到 `.local/session_cookies.txt`
 - 清空考试列表缓存 `examsCache`
 
 #### 失败响应
@@ -672,7 +672,7 @@ HTTP 状态码为 `500`。
 
 ### 2.10 退出登录
 
-先调用上游 `POST /login/public/logout` 使会话失效（尽力而为：上游调用失败或本地无会话时跳过，本地登出始终成功），再清空后端进程内会话、考试缓存，并删除 `apps/web/.local/session_cookies.txt`。上游登出会作废该会话，其他持有同一会话的设备（包括原版 Web 浏览器）会随之失效。
+先调用上游 `POST /login/public/logout` 使会话失效（尽力而为：上游调用失败或本地无会话时跳过，本地登出始终成功），再清空后端进程内会话、考试缓存，并删除 `.local/session_cookies.txt`。上游登出会作废该会话，其他持有同一会话的设备（包括原版 Web 浏览器）会随之失效。
 
 ```http
 POST /api/logout
@@ -695,7 +695,7 @@ Content-Type: application/json
 
 ### 2.11 局域网访问设置
 
-读取或修改服务器级设置。设置保存于 `apps/web/.local/settings.json`（权限 `0600`），修改后立即生效，无需重启。
+读取或修改服务器级设置。设置保存于 `.local/settings.json`（权限 `0600`），修改后立即生效，无需重启。
 
 ```http
 GET /api/settings
@@ -740,9 +740,9 @@ Content-Type: application/json
 
 ### 2.12 Cookie 云端同步
 
-通过自建 [CookieCloud](https://github.com/easychen/CookieCloud) 服务在设备间共享登录会话。协议与官方浏览器扩展兼容：CookieCloud 服务端只保存密文（`{uuid → {encrypted, crypto_type}}`），加密与解密全部在本服务内完成，与扩展互通的双向算法（`legacy` 与 `aes-128-cbc-fixed`）实现于 `apps/web/lib/cookiecloud.js`。推送统一使用 `aes-128-cbc-fixed`；解密同时支持两种类型，未知类型或解密失败一律报错不应用（fail-closed）。
+通过自建 [CookieCloud](https://github.com/easychen/CookieCloud) 服务在设备间共享登录会话。协议与官方浏览器扩展兼容：CookieCloud 服务端只保存密文（`{uuid → {encrypted, crypto_type}}`），加密与解密全部在本服务内完成，与扩展互通的双向算法（`legacy` 与 `aes-128-cbc-fixed`）实现于 `lib/cookiecloud.js`。推送统一使用 `aes-128-cbc-fixed`；解密同时支持两种类型，未知类型或解密失败一律报错不应用（fail-closed）。
 
-配置保存在 `apps/web/.local/settings.json`（权限 `0600`），`password` 不会被任何读取接口返回。
+配置保存在 `.local/settings.json`（权限 `0600`），`password` 不会被任何读取接口返回。
 
 ```http
 GET /api/cookiecloud
@@ -949,7 +949,7 @@ cookieJar.includes("sessionId=")
 - 清空 `cookieJar`
 - 清空 `examCache`
 - 清空 `examsCache`
-- 删除 `apps/web/.local/session_cookies.txt`
+- 删除 `.local/session_cookies.txt`
 
 并返回：
 
