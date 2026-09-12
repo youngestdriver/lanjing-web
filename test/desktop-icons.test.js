@@ -4,8 +4,8 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-// __dirname is apps/web/test; the repo root (with assets/) is 3 levels up.
-const assetsDir = path.resolve(__dirname, "..", "..", "..", "assets", "desktop");
+// __dirname is test/; the repo root (with assets/) is 1 level up.
+const assetsDir = path.resolve(__dirname, "..", "assets", "desktop");
 
 test("icon.ico is an ICO container with three embedded PNG entries", () => {
   const data = fs.readFileSync(path.join(assetsDir, "icon.ico"));

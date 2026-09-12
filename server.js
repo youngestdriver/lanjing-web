@@ -21,14 +21,14 @@ const LOCAL_DIR = path.resolve(process.env.LANJING_LOCAL_DIR || path.join(__dirn
 const SESSION_FILE = path.join(LOCAL_DIR, "session_cookies.txt");
 const SETTINGS_FILE = path.join(LOCAL_DIR, "settings.json");
 // Question bank served at /bank (plain HTTP GET for the iOS client). The bank
-// tool lives in apps/bank/ (its own standalone app); the data it collects is
-// under apps/bank/data/. LANJING_BANK_DIR lets tests point at a temp dir; in
-// CI the dir may not exist — the static mount then simply 404s every /bank/*
-// route.
-const BANK_DIR = path.resolve(process.env.LANJING_BANK_DIR || path.join(__dirname, "..", "bank", "data"));
+// tool lives in the separate lanjing-bank package; the data it collects
+// defaults to this app's own .local/bank-data/. LANJING_BANK_DIR overrides it
+// (tests point at a temp dir); when the dir does not exist the static mount
+// then simply 404s every /bank/* route.
+const BANK_DIR = path.resolve(process.env.LANJING_BANK_DIR || path.join(LOCAL_DIR, "bank-data"));
 
 const practiceCrawl = require("./lib/practice-crawl");
-// Practice bank lives under the web app's own .local (not apps/bank/data).
+// Practice bank lives under the web app's own .local (not the bank dir).
 const PRACTICE_DIR = path.join(LOCAL_DIR, "practice");
 
 // ========== helpers ==========

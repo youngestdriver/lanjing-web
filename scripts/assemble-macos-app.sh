@@ -38,9 +38,9 @@ else
 fi
 TMPB="$(mktemp -d)"
 trap 'rm -rf "$TMPB"' EXIT
-"${SWIFT_CMD[@]}" -O -target arm64-apple-macosx12.0 "$ROOT/apps/desktop/macos/main.swift" \
+"${SWIFT_CMD[@]}" -O -target arm64-apple-macosx12.0 "$ROOT/desktop/macos/main.swift" \
   -o "$TMPB/launcher-arm64" -framework AppKit -framework Foundation
-"${SWIFT_CMD[@]}" -O -target x86_64-apple-macosx12.0 "$ROOT/apps/desktop/macos/main.swift" \
+"${SWIFT_CMD[@]}" -O -target x86_64-apple-macosx12.0 "$ROOT/desktop/macos/main.swift" \
   -o "$TMPB/launcher-x64" -framework AppKit -framework Foundation
 lipo -create "$TMPB/launcher-arm64" "$TMPB/launcher-x64" \
   -output "$APP/Contents/MacOS/LanjingQuiz"
@@ -48,7 +48,7 @@ lipo -create "$TMPB/launcher-arm64" "$TMPB/launcher-x64" \
 # Icon + metadata
 cp "$ROOT/assets/desktop/status-icon.png" "$APP/Contents/Resources/status-icon.png"
 cp "$ROOT/assets/desktop/icon.icns" "$APP/Contents/Resources/icon.icns"
-cp "$ROOT/apps/desktop/macos/Info.plist" "$APP/Contents/Info.plist"
+cp "$ROOT/desktop/macos/Info.plist" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 
 # DMG with install guidance: an Applications shortcut plus a background

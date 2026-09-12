@@ -16,7 +16,7 @@ const { once } = require("node:events");
 const { after, before, test } = require("node:test");
 const { spawnSync } = require("node:child_process");
 
-const repoRoot = path.resolve(__dirname, "..", "..", "..");
+const repoRoot = path.resolve(__dirname, "..");
 const webDir = path.resolve(__dirname, "..");
 const bundleFile = path.join(webDir, "public-bundle.js");
 const publicDir = path.join(webDir, "public");

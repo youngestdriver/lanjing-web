@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
-// Generates apps/web/public-bundle.js — every public/ file as a base64 blob
+// Generates public-bundle.js — every public/ file as a base64 blob
 // inside one CommonJS module. Desktop executables are built with
 // `bun build --compile`, which bundles JS modules but does NOT embed loose
 // files: __dirname in a compiled binary points at the build machine's source
@@ -15,7 +15,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const webDir = path.resolve(__dirname, "..", "apps", "web");
+const webDir = path.resolve(__dirname, "..");
 const publicDir = path.join(webDir, "public");
 const outFile = path.join(webDir, "public-bundle.js");
 

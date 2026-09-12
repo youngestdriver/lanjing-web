@@ -2,7 +2,7 @@
 
 // Tests for the /bank static download endpoint used by the iOS practice
 // client. The bank directory is pointed at a tmp dir via LANJING_BANK_DIR
-// (never the real apps/bank); the CI-without-bank case is covered by
+// (never a real question-bank dir); the CI-without-bank case is covered by
 // removing the tmp contents and asserting 404s.
 
 const assert = require("node:assert/strict");
