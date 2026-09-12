@@ -1,0 +1,20 @@
+# Session & credentials
+session_cookies.txt
+.local/
+
+# Saved exam data
+*_2026-*/
+public/index.backup.html
+
+# 桌面构建生成的静态资源包
+public-bundle.js
+
+# Server certs
+.cert/
+
+# Dependencies
+node_modules/
+
+# OS
+Thumbs.db
+.DS_Store
