@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "express": "^5.1.0",
-    "lanjing-bank": "github:youngestdriver/lanjing_test#v0.0.41"
+    "lanjing-bank": "github:youngestdriver/lanjing_test#v0.0.45"
   },
   "devDependencies": {
     "playwright-core": "^1.62.1"
